@@ -52,7 +52,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
           className="flex items-center gap-2 text-left group"
         >
           <span className="font-bold text-xl lg:text-2xl text-[#21638d] tracking-tight group-hover:text-[#00629d] transition-colors">
-            {currentTab === 'community' ? 'Luminous Business Hub' : 'Travelog'}
+            Travelog
           </span>
           <span className="hidden sm:inline-block text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 bg-[#cfe5ff] text-[#004069] rounded-full">
             사장님 모드
