@@ -19,17 +19,30 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   waitlistCount,
 }) => {
   const [selectedDay, setSelectedDay] = useState<string>('목');
-  const [currencyMode, setCurrencyMode] = useState<'USD' | 'KRW'>('USD');
+  const [currencyMode, setCurrencyMode] = useState<'USD' | 'KRW'>('KRW');
 
   const lowStockCount = inventory.filter((item) => item.status !== 'normal').length;
 
   const activeDayData = weeklyData.find((d) => d.day === selectedDay) || weeklyData[3];
+  const todayData = weeklyData.find((d) => d.isToday) || weeklyData[3];
 
   const formatAmount = (amountUSD: number) => {
     if (currencyMode === 'USD') {
       return `$${amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
     return `₩${(amountUSD * 1350).toLocaleString('ko-KR')}원`;
+  };
+
+  // Compact form for the chart axis / floating badges, respects the same currency toggle
+  const formatAmountCompact = (amountUSD: number) => {
+    if (amountUSD === 0) return '0';
+    if (currencyMode === 'USD') {
+      return amountUSD >= 1000
+        ? `$${(amountUSD / 1000).toFixed(amountUSD % 1000 === 0 ? 0 : 1)}k`
+        : `$${amountUSD.toLocaleString('en-US')}`;
+    }
+    const krw = amountUSD * 1350;
+    return krw >= 10000 ? `₩${Math.round(krw / 10000).toLocaleString('ko-KR')}만` : `₩${krw.toLocaleString('ko-KR')}`;
   };
 
   return (
@@ -97,7 +110,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
             <span className="text-xs sm:text-sm font-semibold text-[#41474e]">오늘 매출</span>
           </div>
           <div className="text-xl sm:text-2xl font-bold text-[#191c1e]">
-            {formatAmount(1245)}
+            {formatAmount(todayData.amount)}
           </div>
           <div className="text-xs font-semibold text-[#00629d] mt-2 flex items-center gap-1">
             <span className="material-symbols-outlined text-[15px] font-bold">trending_up</span>
@@ -186,10 +199,10 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
         <div className="h-56 flex items-end gap-2 sm:gap-4 justify-between px-2 pt-8">
           {/* Y Axis Labels */}
           <div className="flex flex-col justify-between h-full text-xs text-[#71787f] pr-3 border-r border-[#e0e3e5]/60 pb-6">
-            <span>$1.5k</span>
-            <span>$1k</span>
-            <span>$500</span>
-            <span>0</span>
+            <span>{formatAmountCompact(1500)}</span>
+            <span>{formatAmountCompact(1000)}</span>
+            <span>{formatAmountCompact(500)}</span>
+            <span>{formatAmountCompact(0)}</span>
           </div>
 
           {/* Bars Area */}
@@ -215,7 +228,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     {/* Tooltip / Badge for selected/hovered */}
                     {(isSelected || item.isToday) && (
                       <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#2d3133] text-white text-[11px] font-bold px-2 py-0.5 rounded-lg shadow-md whitespace-nowrap z-20 animate-in fade-in slide-in-from-bottom-1">
-                        ${item.amount.toLocaleString()}
+                        {formatAmountCompact(item.amount)}
                       </div>
                     )}
 
