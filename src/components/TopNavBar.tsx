@@ -52,7 +52,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
           className="flex items-center gap-2 text-left group"
         >
           <span className="font-bold text-xl lg:text-2xl text-[#21638d] tracking-tight group-hover:text-[#00629d] transition-colors">
-            TraclLOG
+            TravelLOG
           </span>
           <span className="hidden sm:inline-block text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 bg-[#cfe5ff] text-[#004069] rounded-full">
             사장님 모드
@@ -147,7 +147,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-[#191c1e]">카페 아라</h4>
-                  <p className="text-xs text-[#71787f]">cafe.ara@tracllog.shop</p>
+                  <p className="text-xs text-[#71787f]">cafe.ara@travellog.shop</p>
                 </div>
               </div>
               <div className="py-2 space-y-1 text-sm text-[#41474e]">
