@@ -1,5 +1,5 @@
 {
-  "name": "Travelog - Luminous Business Hub",
+  "name": "TraclLOG - Luminous Business Hub",
   "description": "소상공인 통합 매장 관리 및 비즈니스 커뮤니티 플랫폼 (대시보드, 재무 캘린더, 실시간 매장 관리, 로컬 커뮤니티)",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
